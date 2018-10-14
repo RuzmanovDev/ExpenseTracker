@@ -9,11 +9,13 @@ namespace ExpenseTracker.Data.Entities
     {
         private ICollection<Budget> budgets;
         private ICollection<Savings> savings;
+        private ICollection<Expense> expenses;
 
         public User()
         {
-            this.Budgets = new HashSet<Budget>();
+            this.budgets = new HashSet<Budget>();
             this.savings = new HashSet<Savings>();
+            this.expenses = new HashSet<Expense>();
         }
 
         public virtual ICollection<Budget> Budgets
@@ -26,6 +28,12 @@ namespace ExpenseTracker.Data.Entities
         {
             get { return this.savings; }
             set { this.savings = value; }
+        }
+
+        public virtual ICollection<Expense> Expenses
+        {
+            get { return this.expenses; }
+            set { this.expenses = value; }
         }
     }
 }
