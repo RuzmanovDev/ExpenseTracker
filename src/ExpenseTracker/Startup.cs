@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ExpenseTracker.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ExpenseTracker.Data.Entities;
 
 namespace ExpenseTracker
 {
@@ -31,7 +32,7 @@ namespace ExpenseTracker
 
             var defaultConnString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ExpenseTrackerDbContext>(options => options.UseSqlServer(defaultConnString));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ExpenseTrackerDbContext>();
+            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<ExpenseTrackerDbContext>();
             services.AddDbContext<ExpenseTrackerDbContext>(o => o.UseSqlServer(defaultConnString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1); 

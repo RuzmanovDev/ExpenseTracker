@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ExpenseTracker.Data.Entities
 {
@@ -14,6 +15,8 @@ namespace ExpenseTracker.Data.Entities
         public string Name { get; set; }
 
         public decimal ExpenseAmmount { get; set; }
+
+        public DateTime DateOfPayment { get; set; }
 
         public virtual ICollection<ExpensesTags> ExpensesTags
         {

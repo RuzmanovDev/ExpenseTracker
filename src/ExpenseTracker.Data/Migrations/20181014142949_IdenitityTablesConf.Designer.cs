@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseTracker.Data.Migrations
 {
     [DbContext(typeof(ExpenseTrackerDbContext))]
-    [Migration("20181014133331_UpdateConnectionBetweenTables")]
-    partial class UpdateConnectionBetweenTables
+    [Migration("20181014142949_IdenitityTablesConf")]
+    partial class IdenitityTablesConf
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,12 +21,38 @@ namespace ExpenseTracker.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ExpenseTracker.Data.Entities.Budget", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Ammount");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<string>("UserId1");
+
+                    b.Property<string>("UserId2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId1");
+
+                    b.HasIndex("UserId2");
+
+                    b.ToTable("Budget");
+                });
+
             modelBuilder.Entity("ExpenseTracker.Data.Entities.Expense", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateOfPayment");
 
                     b.Property<decimal>("ExpenseAmmount");
 
@@ -61,7 +87,11 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.Property<decimal>("SavedAmmount");
 
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Savings");
                 });
@@ -101,7 +131,7 @@ namespace ExpenseTracker.Data.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -121,7 +151,7 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("RolesClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -133,6 +163,9 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -151,13 +184,7 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -172,7 +199,9 @@ namespace ExpenseTracker.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -192,7 +221,7 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("UserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -212,7 +241,7 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -225,7 +254,7 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("UsersRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -242,7 +271,28 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("UsersTokens");
+                });
+
+            modelBuilder.Entity("ExpenseTracker.Data.Entities.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+
+                    b.ToTable("User");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("ExpenseTracker.Data.Entities.Budget", b =>
+                {
+                    b.HasOne("ExpenseTracker.Data.Entities.User")
+                        .WithMany("Budgets")
+                        .HasForeignKey("UserId1");
+
+                    b.HasOne("ExpenseTracker.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId2");
                 });
 
             modelBuilder.Entity("ExpenseTracker.Data.Entities.ExpensesTags", b =>
@@ -256,6 +306,13 @@ namespace ExpenseTracker.Data.Migrations
                         .WithMany("ExpensesTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ExpenseTracker.Data.Entities.Savings", b =>
+                {
+                    b.HasOne("ExpenseTracker.Data.Entities.User")
+                        .WithMany("Savings")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
