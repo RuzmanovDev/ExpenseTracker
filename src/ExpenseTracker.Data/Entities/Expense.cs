@@ -12,7 +12,9 @@ namespace ExpenseTracker.Data.Entities
             this.expensesTags = new HashSet<ExpensesTags>();
         }
 
-        public string Name { get; set; }
+        public string Title { get; set; }
+
+        public string Description { get; set; }
 
         public decimal ExpenseAmmount { get; set; }
 
@@ -23,5 +25,9 @@ namespace ExpenseTracker.Data.Entities
             get { return this.expensesTags; }
             set { this.expensesTags = value; }
         }
+
+        public string UserId { get; set; }
+
+        public virtual User User  { get; set; }
     }
 }

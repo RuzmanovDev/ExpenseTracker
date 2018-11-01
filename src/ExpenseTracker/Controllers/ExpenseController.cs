@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpenseTracker.Data;
 using ExpenseTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,24 +10,23 @@ namespace ExpenseTracker.Controllers
 {
     public class ExpenseController : Controller
     {
-        private static ExpenseListViewModel expenseList = new ExpenseListViewModel();
+        private readonly ExpenseTrackerDbContext context = new ExpenseTrackerDbContext();
 
         public ExpenseController()
         {
 
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult PostExpense()
         {
-            return View(expenseList);
+            return View(new PostExpenseViewModel());
         }
 
         [HttpPost]
-        public IActionResult Index(string expenseName)
+        public IActionResult PostExpense(PostExpenseViewModel expenseViewModel)
         {
-            expenseList.Expenses.Add(expenseName);
-
-            return View(expenseList);
+            return PostExpense();
         }
     }
 }

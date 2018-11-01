@@ -4,14 +4,16 @@ using ExpenseTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExpenseTracker.Data.Migrations
 {
     [DbContext(typeof(ExpenseTrackerDbContext))]
-    partial class ExpenseTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181014162455_UserHasExpensesFix1")]
+    partial class UserHasExpensesFix1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,11 +54,9 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.Property<DateTime>("DateOfPayment");
 
-                    b.Property<string>("Description");
-
                     b.Property<decimal>("ExpenseAmmount");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Name");
 
                     b.Property<string>("UserId");
 

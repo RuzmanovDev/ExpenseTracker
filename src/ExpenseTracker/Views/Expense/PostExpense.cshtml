@@ -1,0 +1,33 @@
+﻿@model PostExpenseViewModel
+
+<h1>Create an expense</h1>
+
+<form action="/Expense/PostExpense" method="post">
+    @Html.AntiForgeryToken();
+    <div>
+        @Html.LabelFor(t => t.Name)
+        @Html.TextBoxFor(t => t.Name)
+    </div>
+
+    <div>
+        @Html.LabelFor(n => n.ExpenseDescription)
+        @Html.TextAreaFor(a => a.ExpenseDescription)
+    </div>
+    <div>
+        @Html.LabelFor(l => l.Ammount)
+        @Html.TextBoxFor(b => b.Ammount)
+    </div>
+
+    <div>
+        @Html.LabelFor(d => d.DateOfPayment)
+        @Html.TextBoxFor(d => d.DateOfPayment)
+    </div>
+
+    <div>
+        @Html.LabelFor(t => t.Tags)
+        @Html.TextBoxFor(t => t.Tags)
+    </div>
+    <input type="submit" name="name" value="Submit" />
+</form>
+
+
