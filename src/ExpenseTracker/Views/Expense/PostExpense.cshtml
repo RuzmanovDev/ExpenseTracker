@@ -7,26 +7,26 @@
         <ul>
             <li class="form-row">
                 @Html.LabelFor(t => t.Name)
-                @Html.TextBoxFor(t => t.Name)
+                @Html.TextBoxFor(t => t.Name, new { @class = "form-control" })
             </li>
             <li class="form-row">
                 @Html.LabelFor(n => n.ExpenseDescription)
-                @Html.TextAreaFor(a => a.ExpenseDescription, new { @class = "etTextArea" })
+                @Html.TextAreaFor(a => a.ExpenseDescription, new { @class = "etTextArea form-control" })
             </li>
             <li class="form-row">
                 @Html.LabelFor(l => l.Ammount)
-                @Html.TextBoxFor(b => b.Ammount)
+                @Html.TextBoxFor(b => b.Ammount, new { @class = "form-control" })
             </li>
             <li class="form-row">
                 @Html.LabelFor(d => d.DateOfPayment)
-                @Html.TextBoxFor(d => d.DateOfPayment)
+                @Html.TextBoxFor(d => d.DateOfPayment, new { @class = "form-control" })
             </li>
             <li class="form-row">
                 @Html.LabelFor(t => t.Tags)
-                @Html.TextBoxFor(t => t.Tags)
+                @Html.TextBoxFor(t => t.Tags, new { @class = "form-control" })
             </li>
             <li class="form-row">
-                <input type="submit" name="name" value="Submit" />
+                <input type="submit" name="name" value="Submit" class="btn btn-default" />
             </li>
         </ul>
     </form>
