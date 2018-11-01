@@ -3,7 +3,7 @@
 <h1>Create an expense</h1>
 
 <form action="/Expense/PostExpense" method="post">
-    @Html.AntiForgeryToken();
+    @Html.AntiForgeryToken()
     <div>
         @Html.LabelFor(t => t.Name)
         @Html.TextBoxFor(t => t.Name)

@@ -6,9 +6,9 @@ namespace ExpenseTracker.Models
     {
         public ExpenseListViewModel()
         {
-            this.Expenses = new List<string>();
+            this.Expenses = new List<ExpenseViewModel>();
         }
 
-        public ICollection<string> Expenses { get; set; }
+        public ICollection<ExpenseViewModel> Expenses { get; set; }
     }
 }

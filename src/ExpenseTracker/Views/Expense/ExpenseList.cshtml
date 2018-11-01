@@ -1,0 +1,21 @@
+﻿@model ExpenseListViewModel
+
+<h2>ExpenseList</h2>
+
+<table>
+    @foreach (var expense in Model.Expenses)
+    {
+        <tr>
+            <td>@expense.Title</td>
+            <td>@expense.Description</td>
+            <td>@expense.Ammount</td>
+            <td>@expense.DateOfPayment </td>
+            <td>
+                @foreach (var tag in expense.Tags)
+                {
+                    @tag.Name
+                }
+            </td>
+        </tr>
+    }
+</table>

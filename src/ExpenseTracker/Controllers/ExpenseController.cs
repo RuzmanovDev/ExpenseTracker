@@ -11,10 +11,17 @@ namespace ExpenseTracker.Controllers
     public class ExpenseController : Controller
     {
         private readonly ExpenseTrackerDbContext context = new ExpenseTrackerDbContext();
+        private static ExpenseListViewModel expenseList = new ExpenseListViewModel();
 
         public ExpenseController()
         {
 
+        }
+
+        [HttpGet]
+        public IActionResult ExpenseList()
+        {
+            return View(expenseList);
         }
 
         [HttpGet]
@@ -24,8 +31,20 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostExpense(PostExpenseViewModel expenseViewModel)
+        public IActionResult PostExpense(PostExpenseViewModel expenseData)
         {
+            var expense = new ExpenseViewModel();
+            expense.Title = expenseData.Name;
+            expense.Description = expenseData.ExpenseDescription;
+            expense.Ammount = expenseData.Ammount;
+            expense.DateOfPayment = expenseData.DateOfPayment;
+
+            var tags = expenseData.Tags.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(t => new TagViewModel() { Name = t }).ToList();
+
+            expense.Tags = tags;
+            expenseList.Expenses.Add(expense);
+
             return PostExpense();
         }
     }
