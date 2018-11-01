@@ -1,33 +1,32 @@
 ﻿@model PostExpenseViewModel
 
-<h1>Create an expense</h1>
-
-<form action="/Expense/PostExpense" method="post">
-    @Html.AntiForgeryToken()
-    <div>
-        @Html.LabelFor(t => t.Name)
-        @Html.TextBoxFor(t => t.Name)
-    </div>
-
-    <div>
-        @Html.LabelFor(n => n.ExpenseDescription)
-        @Html.TextAreaFor(a => a.ExpenseDescription)
-    </div>
-    <div>
-        @Html.LabelFor(l => l.Ammount)
-        @Html.TextBoxFor(b => b.Ammount)
-    </div>
-
-    <div>
-        @Html.LabelFor(d => d.DateOfPayment)
-        @Html.TextBoxFor(d => d.DateOfPayment)
-    </div>
-
-    <div>
-        @Html.LabelFor(t => t.Tags)
-        @Html.TextBoxFor(t => t.Tags)
-    </div>
-    <input type="submit" name="name" value="Submit" />
-</form>
-
-
+<div class="createExpenseWrapper">
+    <form action="/Expense/PostExpense" method="post">
+        @Html.AntiForgeryToken()
+        <ul class="form-group">
+            <li>
+                @Html.LabelFor(t => t.Name)
+                @Html.TextBoxFor(t => t.Name)
+            </li>
+            <li>
+                @Html.LabelFor(n => n.ExpenseDescription)
+                @Html.TextAreaFor(a => a.ExpenseDescription)
+            </li>
+            <li>
+                @Html.LabelFor(l => l.Ammount)
+                @Html.TextBoxFor(b => b.Ammount)
+            </li>
+            <li>
+                @Html.LabelFor(d => d.DateOfPayment)
+                @Html.TextBoxFor(d => d.DateOfPayment)
+            </li>
+            <li>
+                @Html.LabelFor(t => t.Tags)
+                @Html.TextBoxFor(t => t.Tags)
+            </li>
+            <li>
+                <input type="submit" name="name" value="Submit" />
+            </li>
+        </ul>
+    </form>
+</div>
