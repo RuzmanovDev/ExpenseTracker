@@ -4,25 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExpenseTracker.Data.Migrations
 {
-    public partial class IdenitityTablesConf : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Expenses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    ExpenseAmmount = table.Column<decimal>(nullable: false),
-                    DateOfPayment = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Expenses", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
@@ -95,52 +80,43 @@ namespace ExpenseTracker.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExpensesTags",
-                columns: table => new
-                {
-                    ExpenseId = table.Column<Guid>(nullable: false),
-                    TagId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExpensesTags", x => new { x.ExpenseId, x.TagId });
-                    table.ForeignKey(
-                        name: "FK_ExpensesTags_Expenses_ExpenseId",
-                        column: x => x.ExpenseId,
-                        principalTable: "Expenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExpensesTags_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Budget",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     Ammount = table.Column<decimal>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: false),
-                    UserId2 = table.Column<string>(nullable: true),
-                    UserId1 = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Budget", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Budget_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Budget_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Expenses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ExpenseAmmount = table.Column<decimal>(nullable: false),
+                    DateOfPayment = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Expenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Budget_Users_UserId2",
-                        column: x => x.UserId2,
+                        name: "FK_Expenses_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -252,15 +228,39 @@ namespace ExpenseTracker.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Budget_UserId1",
-                table: "Budget",
-                column: "UserId1");
+            migrationBuilder.CreateTable(
+                name: "ExpensesTags",
+                columns: table => new
+                {
+                    ExpenseId = table.Column<Guid>(nullable: false),
+                    TagId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpensesTags", x => new { x.ExpenseId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_ExpensesTags_Expenses_ExpenseId",
+                        column: x => x.ExpenseId,
+                        principalTable: "Expenses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExpensesTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Budget_UserId2",
+                name: "IX_Budget_UserId",
                 table: "Budget",
-                column: "UserId2");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expenses_UserId",
+                table: "Expenses",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExpensesTags_TagId",

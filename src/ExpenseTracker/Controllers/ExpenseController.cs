@@ -31,6 +31,7 @@ namespace ExpenseTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult PostExpense(PostExpenseViewModel expenseData)
         {
             var expense = new ExpenseViewModel();

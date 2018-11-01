@@ -28,17 +28,11 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.Property<DateTime>("DateCreated");
 
-                    b.Property<Guid>("UserId");
-
-                    b.Property<string>("UserId1");
-
-                    b.Property<string>("UserId2");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
-
-                    b.HasIndex("UserId2");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Budget");
                 });
@@ -290,13 +284,9 @@ namespace ExpenseTracker.Data.Migrations
 
             modelBuilder.Entity("ExpenseTracker.Data.Entities.Budget", b =>
                 {
-                    b.HasOne("ExpenseTracker.Data.Entities.User")
-                        .WithMany("Budgets")
-                        .HasForeignKey("UserId1");
-
                     b.HasOne("ExpenseTracker.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId2");
+                        .WithMany("Budgets")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ExpenseTracker.Data.Entities.Expense", b =>

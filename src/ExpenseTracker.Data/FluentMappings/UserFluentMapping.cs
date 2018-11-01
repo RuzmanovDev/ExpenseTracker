@@ -9,7 +9,6 @@ namespace ExpenseTracker.Data.FluentMappings
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasMany(x => x.Savings).WithOne();
-            builder.HasMany(x => x.Budgets).WithOne();
         }
     }
 }

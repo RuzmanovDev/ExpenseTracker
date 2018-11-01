@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ExpenseTracker.Data.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ExpenseTracker.Data.FluentMappings
 {
-    class BudgetFluentMapping
+    public class BudgetFluentMapping : IEntityTypeConfiguration<Budget>
     {
+        public void Configure(EntityTypeBuilder<Budget> builder)
+        {
+            builder.HasOne(x => x.User).WithMany();
+        }
     }
 }

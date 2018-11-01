@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ExpenseTracker.Data.Entities
 {
@@ -8,7 +6,7 @@ namespace ExpenseTracker.Data.Entities
     {
         public decimal Ammount { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
     }
