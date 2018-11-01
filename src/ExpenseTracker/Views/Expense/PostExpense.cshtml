@@ -1,30 +1,31 @@
 ﻿@model PostExpenseViewModel
 
 <div class="createExpenseWrapper">
+    <h1 class="text-center">Create expense</h1>
     <form action="/Expense/PostExpense" method="post">
         @Html.AntiForgeryToken()
-        <ul class="form-group">
-            <li>
+        <ul>
+            <li class="form-row">
                 @Html.LabelFor(t => t.Name)
                 @Html.TextBoxFor(t => t.Name)
             </li>
-            <li>
+            <li class="form-row">
                 @Html.LabelFor(n => n.ExpenseDescription)
-                @Html.TextAreaFor(a => a.ExpenseDescription)
+                @Html.TextAreaFor(a => a.ExpenseDescription, new { @class = "etTextArea" })
             </li>
-            <li>
+            <li class="form-row">
                 @Html.LabelFor(l => l.Ammount)
                 @Html.TextBoxFor(b => b.Ammount)
             </li>
-            <li>
+            <li class="form-row">
                 @Html.LabelFor(d => d.DateOfPayment)
                 @Html.TextBoxFor(d => d.DateOfPayment)
             </li>
-            <li>
+            <li class="form-row">
                 @Html.LabelFor(t => t.Tags)
                 @Html.TextBoxFor(t => t.Tags)
             </li>
-            <li>
+            <li class="form-row">
                 <input type="submit" name="name" value="Submit" />
             </li>
         </ul>

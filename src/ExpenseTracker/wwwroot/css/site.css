@@ -1,14 +1,36 @@
-﻿html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-}
-
+﻿
 .createExpenseWrapper {
-    display: flex;
-    margin-top: 150px;
+    margin-top: 100px;
+    background-color: whitesmoke;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 3px;
 }
 
-.createExpenseItem {
-    margin: auto;
+.form-row {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
 }
+
+    .form-row > label {
+        padding: .5em 1em .5em 0;
+        flex: 1;
+    }
+
+    .form-row > input {
+        flex: 1;
+    }
+
+    .form-row > input,
+    .form-row > button,
+    .form-row > textarea {
+        padding: .5em;
+        flex: 2;
+    }
+
+    .form-row > button {
+        background: gray;
+        color: white;
+        border: 0px
+    }
