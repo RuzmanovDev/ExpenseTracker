@@ -8,6 +8,7 @@ using ExpenseTracker.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ExpenseTracker.Data.Entities;
+using ExpenseTracker.Middleware;
 
 namespace ExpenseTracker
 {
@@ -54,6 +55,7 @@ namespace ExpenseTracker
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseNodeModules(env.ContentRootPath);
             app.UseCookiePolicy();
 
             app.UseAuthentication();

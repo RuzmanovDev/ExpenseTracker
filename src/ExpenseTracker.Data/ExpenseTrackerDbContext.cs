@@ -12,11 +12,6 @@ namespace ExpenseTracker.Data
         {
         }
 
-        public ExpenseTrackerDbContext()
-        {
-
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

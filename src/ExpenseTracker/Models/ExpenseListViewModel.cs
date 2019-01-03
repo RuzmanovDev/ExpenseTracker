@@ -10,5 +10,7 @@ namespace ExpenseTracker.Models
         }
 
         public ICollection<ExpenseViewModel> Expenses { get; set; }
+
+        public int TotalCount { get; set; }
     }
 }
