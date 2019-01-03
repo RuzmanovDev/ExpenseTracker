@@ -1,38 +1,34 @@
-﻿using ExpenseTracker.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ExpenseTracker.Dto;
+using ExpenseTracker.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExpenseTracker.WebApi.Controllers.Expense
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ExpenseController : ControllerBase
     {
-        private readonly ExpenseTrackerDbContext context;
-        public ExpenseController(ExpenseTrackerDbContext dbContext)
+        private readonly IExpenseService expenseService;
+
+        public ExpenseController(IExpenseService expenseService)
         {
-            this.context = dbContext;
+            this.expenseService = expenseService ?? throw new ArgumentNullException(nameof(expenseService));
         }
 
-        // GET api/values
-        [HttpGet]
-        [Authorize]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpPost]
+        public void Create(ExpenseDto expenseData)
         {
-            var tagNames = context.Tags.Select(x => x.Name).ToArray();
-            return tagNames;
+            this.expenseService.Create(expenseData);
         }
 
-        // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Unrestricted()
+        public IEnumerable<ExpenseDto> Get()
         {
-            var tagNames = context.Tags.Select(x => x.Name).ToArray();
-            return tagNames;
+            var result = this.expenseService.GetExpenses();
+
+            return result;
         }
     }
 }
