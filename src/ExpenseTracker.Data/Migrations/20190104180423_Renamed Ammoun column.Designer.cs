@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseTracker.Data.Migrations
 {
     [DbContext(typeof(ExpenseTrackerDbContext))]
-    [Migration("20181101184826_Initial")]
-    partial class Initial
+    [Migration("20190104180423_Renamed Ammoun column")]
+    partial class RenamedAmmouncolumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,7 +50,7 @@ namespace ExpenseTracker.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<decimal>("ExpenseAmmount");
+                    b.Property<decimal>("ExpenseAmount");
 
                     b.Property<string>("Title");
 
@@ -226,11 +226,9 @@ namespace ExpenseTracker.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -261,11 +259,9 @@ namespace ExpenseTracker.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 

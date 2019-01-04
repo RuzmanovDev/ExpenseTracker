@@ -16,7 +16,7 @@ namespace ExpenseTracker.Data.Entities
 
         public string Description { get; set; }
 
-        public decimal ExpenseAmmount { get; set; }
+        public decimal ExpenseAmount { get; set; }
 
         public DateTime DateOfPayment { get; set; }
 

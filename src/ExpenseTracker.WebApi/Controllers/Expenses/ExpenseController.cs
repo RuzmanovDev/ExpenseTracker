@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using ExpenseTracker.Dto;
 using ExpenseTracker.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,8 @@ namespace ExpenseTracker.WebApi.Controllers.Expense
         [HttpPost]
         public void Create(ExpenseDto expenseData)
         {
+            var userIdClaim = this.User.FindFirst(ClaimTypes.NameIdentifier);
+            expenseData.UserId = userIdClaim.Value;
             this.expenseService.Create(expenseData);
         }
 

@@ -58,8 +58,7 @@ namespace ExpenseTracker.WebApi.Controllers.Authentication
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Admin");
-                await _signInManager.SignInAsync(user, false);
+                await _signInManager.SignInAsync(user, false);  
                 return await GenerateJwtToken(model.Email, user);
             }
 

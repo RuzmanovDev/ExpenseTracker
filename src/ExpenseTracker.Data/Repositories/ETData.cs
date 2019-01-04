@@ -28,5 +28,10 @@ namespace ExpenseTracker.Data.Repositories
             var entry = this.dbContext.Entry(entity);
             entry.State = EntityState.Added;
         }
+
+        public void SaveChanges()
+        {
+            this.dbContext.SaveChanges();
+        }
     }
 }

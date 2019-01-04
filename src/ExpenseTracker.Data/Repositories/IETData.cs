@@ -6,5 +6,6 @@ namespace ExpenseTracker.Data.Repositories
     {
         void Add(T entity);
         IEnumerable<T> Get();
+        void SaveChanges();
     }
 }

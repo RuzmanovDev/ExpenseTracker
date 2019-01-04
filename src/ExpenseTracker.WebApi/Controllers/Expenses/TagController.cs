@@ -1,10 +1,7 @@
-﻿using ExpenseTracker.Data;
-using ExpenseTracker.Data.Entities;
+﻿using System;
+using ExpenseTracker.Services;
 using ExpenseTracker.WebApi.DtoModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ExpenseTracker.WebApi.Controllers.Expense
 {
@@ -12,29 +9,17 @@ namespace ExpenseTracker.WebApi.Controllers.Expense
     [ApiController]
     public class TagController : ControllerBase
     {
-        private readonly ExpenseTrackerDbContext context;
-        public TagController(ExpenseTrackerDbContext dbContext)
+        private readonly ITagService tagService;
+
+        public TagController(ITagService tagService)
         {
-            this.context = dbContext;
+            this.tagService = tagService ?? throw new ArgumentNullException(nameof(tagService));
         }
 
-        // GET api/values
         [HttpPost]
-        public ActionResult<Tag> Tag(TagDto tagModel)
+        public TagDto Tag(TagDto tagModel)
         {
-            var tag = new Tag()
-            {
-                Name = tagModel.Name
-            };
-            if (context.Tags.Any(x => x.Name == tagModel.Name))
-            {
-                throw new Exception("Ima takav tag pedal");
-            }
-
-            context.Tags.Add(tag);
-            context.SaveChanges();
-
-            return tag;
+            return this.tagService.CreateTag(tagModel);
         }
     }
 }

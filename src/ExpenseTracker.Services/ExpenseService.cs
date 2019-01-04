@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using ExpenseTracker.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
 using ExpenseTracker.Data.Entities;
+using ExpenseTracker.Data.Repositories;
 using ExpenseTracker.Dto;
 
 namespace ExpenseTracker.Services
 {
     public class ExpenseService : IExpenseService
     {
-        private readonly ExpenseTrackerDbContext dbContext;
+        private readonly IETData<Expense> expenseRepo;
 
-        public ExpenseService(ExpenseTrackerDbContext dbContext)
+        public ExpenseService(IETData<Expense> expenseRepo)
         {
-            this.dbContext = dbContext ?? throw new ArgumentNullException("dbcontext");
+            this.expenseRepo = expenseRepo;
         }
 
         public void Create(ExpenseDto expenseData)
@@ -23,17 +23,24 @@ namespace ExpenseTracker.Services
                 Description = expenseData.Description,
                 DateOfPayment = expenseData.DateOfPayment,
                 UserId = expenseData.UserId,
-                ExpenseAmmount = expenseData.ExpenseAmmount
+                ExpenseAmount = expenseData.ExpenseAmount
             };
 
-
-            dbContext.Expenses.Add(expense);
+            this.expenseRepo.Add(expense);
+            this.expenseRepo.SaveChanges();
         }
 
         public IEnumerable<ExpenseDto> GetExpenses()
         {
             // add logic for getting expenses, consider paging
-            return new List<ExpenseDto>();
+            return this.expenseRepo.Get().Select(x => new ExpenseDto()
+            {
+                DateOfPayment = x.DateOfPayment,
+                Description = x.Description,
+                Title = x.Title,
+                ExpenseAmount = x.ExpenseAmount,
+                UserId = x.UserId
+            });
         }
     }
 }

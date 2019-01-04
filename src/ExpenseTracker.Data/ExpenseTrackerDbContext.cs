@@ -15,7 +15,6 @@ namespace ExpenseTracker.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             // rename Identityty tables
             this.IdentityTablesConfiguration(modelBuilder);
 

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExpenseTracker.Data;
 using ExpenseTracker.Data.Entities;
+using ExpenseTracker.Data.Repositories;
 using ExpenseTracker.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,8 @@ namespace ExpenseTracker.WebApi
             // configure DI for application services
             //services.AddScoped<IUserService, UserService>();
             services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddScoped<ITagService, TagService>();
+            services.AddScoped(typeof(IETData<>), typeof(ETData<>));
         }
 
         private void ConfigureAuth(IServiceCollection services)

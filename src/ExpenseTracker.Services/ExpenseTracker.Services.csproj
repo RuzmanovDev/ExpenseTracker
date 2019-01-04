@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExpenseTracker.Data\ExpenseTracker.Data.csproj" />
+    <ProjectReference Include="..\ExpenseTracker.Dto\ExpenseTracker.Dto.csproj" />
+  </ItemGroup>
+
 </Project>
