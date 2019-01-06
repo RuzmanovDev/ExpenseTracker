@@ -3,20 +3,32 @@ import Router from 'vue-router';
 
 import HomePage from '../components/HomePage.vue';
 import ExpenseList from '../expense/ExpenseList.vue';
+import RegisterPage from '../auth/RegisterPage.vue';
+import LoginPage from '../auth/LoginPage.vue';
 
 Vue.use(Router);
 
 export default new Router({
-    routes:[
+    routes: [
         {
             path: '/',
-            name: 'Home',
+            name: 'home',
             component: HomePage
         },
         {
             path: '/expenses',
-            name: 'ExpenseList',
+            name: 'expense-list',
             component: ExpenseList
+        },
+        {
+            path: '/register',
+            name: "register",
+            component: RegisterPage
+        },
+        {
+            path: '/login',
+            name: "login",
+            component: LoginPage
         }
     ]
 });

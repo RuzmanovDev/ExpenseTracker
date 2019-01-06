@@ -27,12 +27,18 @@ export default new Vuex.Store({
                             amount: e.expenseAmount
                         }
                     })
-
-                    context.state.expenses.push(...expensesToBeAdded);
+                    context.commit('addExpense', ...expensesToBeAdded);
                 }).catch((err) => {
                     console.log(err);
                 });
 
+        },
+        registerUser(user) {
+            debugger;
+            axios.post('/api/users/register', { email: user.email, password: user.password }).then(res => {
+                debugger;
+                console.log(res.data);
+            });
         }
     }
 })

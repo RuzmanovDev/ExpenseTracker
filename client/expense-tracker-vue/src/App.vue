@@ -3,10 +3,19 @@
     <nav>
       <ul class="navigation-list">
         <li>
-          <router-link to="/">Home page</router-link>
+          <router-link :to="{ name: 'home'}">Home</router-link>
         </li>
         <li>
-          <router-link to="/expenses">Expense lis</router-link>
+          <router-link :to="{ name: 'expense-list'}">Expense list</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'register'}">Register</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'login'}">Login</router-link>
+        </li>
+        <li>
+          <a href="#" v-on:click="logout()">Logout</a>
         </li>
       </ul>
     </nav>
@@ -15,8 +24,14 @@
 </template>
 
 <script>
+import authService from "./services/auth-service.js";
 export default {
-  name: "app"
+  name: "app",
+  methods: {
+    logout() {
+      authService.logout();
+    }
+  }
 };
 </script>
 
