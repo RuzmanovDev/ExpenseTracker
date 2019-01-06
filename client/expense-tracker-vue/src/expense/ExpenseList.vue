@@ -1,11 +1,34 @@
 <template>
   <div>
     <h1>List of expenses</h1>
-    <div>{{title}}</div>
-    <div>{{description}}</div>
-    <div>{{amount}}</div>
-    <div>{{dateOfExpense}}</div>
-    <button v-bind="Cick">Click me</button>
+    <ul id="example-2">
+      <li v-for="(expense, index) in listExpense" :key="index">
+        Title: {{ expense.title }}
+        Amount: {{expense.amount}}
+      </li>
+    </ul>
+
+    <div id="createExpenseForm">
+      <div>
+        Expense Title
+        <input
+          type="text"
+          name="expense-title"
+          id="expenseTitle"
+          v-model="expenseTitle"
+        >
+      </div>
+      <div>
+        Expense Amount
+        <input
+          type="text"
+          name="expense-amount"
+          id="expenseAmount"
+          v-model="expenseAmount"
+        >
+      </div>
+      <button v-on:click="addExpense()">Click me</button>
+    </div>
   </div>
 </template>
 
@@ -13,13 +36,27 @@
 <script>
 export default {
   name: "ExpenseList",
+  created() {
+    this.$store.dispatch("getExpenses");
+  },
   data() {
     return {
-      title: "Oil change",
-      amount: 20,
-      description: "The oil was change with w5",
-      dateOfExpense: "2019-01-01"
+      expenseTitle: "default",
+      expenseAmount: 0
     };
+  },
+  computed: {
+    listExpense() {
+      return this.$store.state.expenses;
+    }
+  },
+  methods: {
+    addExpense() {
+      this.$store.commit("addExpense", {
+        title: this.expenseTitle,
+        amount: this.expenseAmount
+      });
+    }
   }
 };
 </script>
